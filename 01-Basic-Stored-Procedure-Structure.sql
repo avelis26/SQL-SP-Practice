@@ -6,6 +6,7 @@
             RETURN or OUT parameters.
 */
 
+/*
 USE UserManagement;
 
 CREATE PROCEDURE GetUsersByRole(IN userRole VARCHAR(50))
@@ -16,3 +17,7 @@ BEGIN
 END;
 
 CALL GetUsersByRole('admin');
+*/
+USE master
+GO
+SELECT @@VERSION AS 'SQL Server Version';
