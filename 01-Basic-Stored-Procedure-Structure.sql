@@ -22,6 +22,10 @@ BEGIN
 	JOIN [AdventureWorks2019].[Person].[Address] AS a
 	ON a.[AddressID] = p.[BusinessEntityID]
 	WHERE p.[PersonType] = @PersonType;
+  
+	SELECT COUNT(*) AS PersonCount
+	FROM [AdventureWorks2019].[Person].[Person] AS p
+	WHERE p.[PersonType] = @PersonType;
 END;
 
 GO
