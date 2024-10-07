@@ -9,43 +9,21 @@
 USE AdventureWorks2019;
 
 GO
-/*
-CREATE PROCEDURE GetPersonAndCity
-    @PersonType varchar(3)
+
+CREATE OR ALTER PROCEDURE GetPersonAndCity
+	@PersonType varchar(3)
 AS
 BEGIN
-  SELECT p.[FirstName]
-        ,p.[LastName]
-		,a.[City]
-    FROM [AdventureWorks2019].[Person].[Person] AS p
-    JOIN [AdventureWorks2019].[Person].[Address] AS a
-      ON a.[AddressID] = p.[BusinessEntityID]
-   WHERE p.[PersonType] = @PersonType;
+	SELECT
+		p.[FirstName],
+		p.[LastName],
+		a.[City]
+	FROM [AdventureWorks2019].[Person].[Person] AS p
+	JOIN [AdventureWorks2019].[Person].[Address] AS a
+	ON a.[AddressID] = p.[BusinessEntityID]
+	WHERE p.[PersonType] = @PersonType;
 END;
 
 GO
-*/
 
-IF NOT EXISTS (
-    SELECT * 
-    FROM sys.objects 
-    WHERE object_id = OBJECT_ID(N'[dbo].[GetPersonAndCity]') 
-    AND type in (N'P', N'PC') -- P = SQL stored procedure, PC = CLR stored procedure
-)
-BEGIN
-    EXEC('
-    CREATE PROCEDURE GetPersonAndCity
-        @PersonType varchar(3)
-    AS
-    BEGIN
-      SELECT p.[FirstName],
-             p.[LastName],
-             a.[City]
-      FROM [AdventureWorks2019].[Person].[Person] AS p
-      JOIN [AdventureWorks2019].[Person].[Address] AS a
-        ON a.[AddressID] = p.[BusinessEntityID]
-      WHERE p.[PersonType] = @PersonType;
-    END;
-    ');
-END;
 EXEC [dbo].[GetPersonAndCity] @PersonType = 'EM';
